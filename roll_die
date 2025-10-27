@@ -1,0 +1,72 @@
+import random
+
+victory = ""
+
+health = ['▮'] * 50
+def enemy_hp():
+    print(    ''.join(health))
+def action():
+    print("\nWhat do you do?")
+    print("\nFight  |  Item  |  Escape")
+    user_start = input("\n")
+def Denver():
+    print("\n\tDenver the Stinky")
+    print("\t       O\n\t     --|--\n\t       |\n\t      --- \n\t      | |")
+    enemy_hp()
+
+roll = random.randint(1, 20)
+
+print("You've encountered an Denver the Stinky!")
+Denver()
+action()
+
+while victory != "You have slain Denver":
+    action()
+    user_start = input()
+    if user_start == "fight":
+        Denver()
+        action()
+        user = input().lower()
+    elif user_start == "item":
+        print("item")
+    elif user_start == "escape":
+        print("escape")
+
+
+
+        
+
+# if user == 'y':
+        #     print("\nYou've rolled:", roll)
+        #     if roll == 20:
+        #         print("Critical hit")
+        #         health.pop()
+        #         health.pop()
+        #         health.pop()
+        #         health.pop()                    
+        #         health.pop()
+        #         Denver()
+        #         enemy_hp()
+        #         action()
+        #     elif roll < 20 and roll >= 15:
+        #         print("Nice hit")
+        #         health.pop()
+        #         health.pop()
+        #         health.pop()
+        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
+        #         print(''.join(health))
+        #     elif roll < 15 and roll >= 10:
+        #         print("Good hit")
+        #         health.pop()
+        #         health.pop()
+        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
+        #         print(''.join(health))
+        #     elif roll < 10 and roll >= 5:
+        #         print("Hit")
+        #         health.pop()
+        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
+        #         print(''.join(health))
+        #     else:
+        #         print("Bad")
+        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
+        #         print(''.join(health))
