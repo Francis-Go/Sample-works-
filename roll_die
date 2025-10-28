@@ -1,72 +1,79 @@
 import random
 
-victory = ""
+victory = 0
+escape = ""
 
-health = ['▮'] * 50
+inventory = ["Potion", "Apple"]
+
+max_health = 10
+health = ['▮'] * max_health
 def enemy_hp():
-    print(    ''.join(health))
+    print(''.join(health))
 def action():
     print("\nWhat do you do?")
     print("\nFight  |  Item  |  Escape")
-    user_start = input("\n")
 def Denver():
     print("\n\tDenver the Stinky")
-    print("\t       O\n\t     --|--\n\t       |\n\t      --- \n\t      | |")
-    enemy_hp()
-
-roll = random.randint(1, 20)
+    print("\t   \   O\n\t    \--|--\n\t       |\n\t      --- \n\t      | |")
+def apply_hit(times):
+    for apply_hit in range(times):
+        if '▮' in health:
+            health.remove('▮')
+            health.append('▯')
+        else:
+            print("Enemy already defeated!")
+            print("You have slain Denver")
+            break
+def critical_hit():
+    apply_hit(5)
+def nice_hit():
+    apply_hit(3)
+def good_hit():
+    apply_hit(2)
+def hit():
+    apply_hit(1)
 
 print("You've encountered an Denver the Stinky!")
-Denver()
-action()
-
-while victory != "You have slain Denver":
+while victory != 1 and escape != "Escaped successfully":
+    if health == ['▯'] * max_health:
+        victory += 1
+        print("You have slain Denver")
+    roll = random.randint(1, 20)
+    Denver()
+    enemy_hp()
     action()
-    user_start = input()
+    user_start = input("\n")
     if user_start == "fight":
-        Denver()
-        action()
-        user = input().lower()
+        user = input("Roll the die (y/n) " ).lower()
+        if user == 'y':
+            print("\nYou've rolled:", roll)
+            if roll == 20:
+                print("Critical hit")
+                critical_hit()
+            elif roll < 20 and roll >= 15:
+                print("Nice hit")
+                nice_hit()
+            elif roll < 15 and roll >= 10:
+                print("Good hit")
+                good_hit()
+            elif roll < 10 and roll >= 5:
+                print("Hit")
+                hit()
+            else:
+                print("Bad")
     elif user_start == "item":
-        print("item")
+        print(' , '.join(inventory))
+        user_inventory = input("\n\nChoose your item > " ).lower()
+        if user_inventory == "potion":
+            print("You've drunk your potion")
+        if user_inventory == "apple":
+            print("You've ate your apple")
     elif user_start == "escape":
-        print("escape")
-
-
-
-        
-
-# if user == 'y':
-        #     print("\nYou've rolled:", roll)
-        #     if roll == 20:
-        #         print("Critical hit")
-        #         health.pop()
-        #         health.pop()
-        #         health.pop()
-        #         health.pop()                    
-        #         health.pop()
-        #         Denver()
-        #         enemy_hp()
-        #         action()
-        #     elif roll < 20 and roll >= 15:
-        #         print("Nice hit")
-        #         health.pop()
-        #         health.pop()
-        #         health.pop()
-        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
-        #         print(''.join(health))
-        #     elif roll < 15 and roll >= 10:
-        #         print("Good hit")
-        #         health.pop()
-        #         health.pop()
-        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
-        #         print(''.join(health))
-        #     elif roll < 10 and roll >= 5:
-        #         print("Hit")
-        #         health.pop()
-        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
-        #         print(''.join(health))
-        #     else:
-        #         print("Bad")
-        #         print("\n\t    O\n\t  --|--\n\t    |\n\t   --- \n\t   | |\n")
-        #         print(''.join(health))
+            escape = random.randint(1, 15)
+            print("\nYou've rolled:", escape)
+            if escape < 10:
+                print("You failed to escape")
+            elif escape == 15:
+                escape = "Escaped successfully"   
+                print("You escaped successfully")
+                print("You've evaded the horror of fighting Denver the Stinky")
